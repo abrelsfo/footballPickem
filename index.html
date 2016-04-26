@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset = "utf-8">
+    <meta http-equiv = "X-UA-Compatible" content = "IE = edge">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+  	<title>Colored Pencils</title>
+    <link href = "./node_modules/bootstrap/dist/css/bootstrap.css" rel = "stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+    <script src='./node_modules/jquery/dist/jquery.min.js'></script>
+    <script>window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.min.js');</script>
+    <script>
+      var fs = require('fs');
+      function load() {
+        getNextGame();
+        getSchedule();
+        //getLeaderboard();
+        //getGraph();
+      }
+      function getNextGame() {
+        $.getJSON('./templateSeason.json', function(games) {
+          var curDate = new Date();
+          for (var week in games) {
+            var gameDate = Date.parse(games[week]["date"])
+            if (curDate < gameDate){
+              gameDate = games[week]["date"];
+              var them = games[week]["them"];
+              var us = games["us"];
+              var time = games[week]["time"];
+              var home = games[week]["home"];
+              break;
+            }
+          }
+          $.getJSON('./collegeFootball/collegeFootball.json', function(data) {
+            for (var division in data) {
+              if (us in data[division]) {
+                var usLogo = '<img src="'+data[division][us]["pic"]+'" alt="'+data[division][us]["abbrev"]+'" class="smallLogo" />';
+              }
+              if (them in data[division]) {
+                var themLogo = '<img src="'+data[division][them]["pic"]+'" alt="'+data[division][them]["abbrev"]+'" class="smallLogo" />';
+              }
+              if (usLogo && themLogo) {
+                nextGameTable(usLogo, themLogo, us, them, time, gameDate, home);
+                break;
+              }
+            }
+
+          });
+        });
+      }
+      function nextGameTable(usLogo, themLogo, us, them, time, date, home) {
+        var t = '<table>';
+        t += '<tr>';
+        t += '<td class="dateRow" colspan="2">' + date + '</td>';
+        t += '</tr>';
+        t += '<tr>';
+        t += '<td align="left">' + usLogo + ' ' + us + '</td>';
+        t += '<td width="100px" align="center">' + time + '</td>';
+        t += '</tr>';
+        t += '<tr>';
+        t += '<td align="left">' + themLogo + ' ' + them + '</td>';
+        t += '<td width="100px" align="center">' + home + '</td>';
+        t += '</tr>';
+        t += '</table>';
+        if (!usLogo) t = "<div>Failed to load next game data</div>";
+        if (!themLogo) t = "<div>Failed to load next game data</div>";
+        if (!us) t = "<div>Failed to load next game data</div>";
+        if (!them) t = "<div>Failed to load next game data</div>";
+        if (!date) t = "<div>Failed to load next game data</div>";
+        document.getElementById('nextGame').innerHTML = t;
+      }
+    function getSchedule() {
+      var schedule = {};
+      $.getJSON('./templateSeason.json', function(games) {
+        for (var week in games) {
+          if (week === "us") continue;
+          var gameDate = games[week]["date"];
+          var them = games[week]["them"];
+          var us = games["us"];
+          var time = games[week]["time"];
+          var home = games[week]["home"];
+          schedule[gameDate] = {
+            "us": us,
+            "them": them,
+            "time": time,
+            'home': home,
+            "usLogo": '',
+            "themLogo": ''
+          }
+        }
+        $.getJSON('./collegeFootball/collegeFootball.json', function(data) {
+          var logos = {};
+          for (var division in data) {
+            for (var team in data[division]) {
+              logos[team] = '<img src="'+data[division][team]["pic"]+'" alt="'+data[division][team]["abbrev"]+'" class="smallLogo" />';
+            }
+          }
+          var logo = logos["Tennessee"];
+          for (var game in schedule) {
+            schedule[game]["usLogo"] = logo;
+            schedule[game]["themLogo"] = logos[schedule[game]["them"]];
+          }
+          buildSchedule(schedule);
+        });
+      });
+    }
+    function buildSchedule(schedule) {
+      var t = '<table>';
+      for (var game in schedule){
+        if (schedule[game]["them"] === "") {
+          t += '<tr>';
+          t += '<td class="dateRow" colspan="2">--/--/----</td>';
+          t += '</tr>';
+          t += '<tr>';
+          t += '<td align="left" height="42px" colspan="2"><span style="margin-left: 15px;">Off Week</span></td>';
+          t += '</tr>';
+        } else {
+          t += '<tr>';
+          t += '<td class="dateRow" colspan="2">' + game + '</td>';
+          t += '</tr>';
+          t += '<tr>';
+          t += '<td align="left">' + schedule[game]["usLogo"] + ' ' + schedule[game]["us"] + '</td>';
+          t += '<td width="100px" align="center">' + schedule[game]["time"] + '</td>';
+          t += '</tr>';
+          t += '<tr>';
+          t += '<td align="left">' + schedule[game]["themLogo"] + ' ' + schedule[game]["them"] + '</td>';
+          t += '<td width="100px" align="center">' + schedule[game]["home"] + '</td>';
+          t += '</tr>';
+        }
+      }
+      t += '</table>';
+      document.getElementById('schedule').innerHTML = t;
+    }
+    function getLeaderboard() {
+      $.getJSON('./season.json', function (data) {
+        document.getElementById('leaderboard').innerHTML = "<div style='background-color: red; width: 600px; height: 600px;'></div>"
+      });
+    }
+
+    function getGraph() {
+      $.getJSON('./season.json', function (data) {
+        document.getElementById('schedule').innerHTML = "<div style='background-color: blue; width: 600px; height: 600px;'></div>"
+      });
+    }
+    </script>
+  </head>
+  <body id="bod" onload="load()">
+    <div class="navbar-xs">
+      <div class="navbar-primary">
+        <nav class="navbar navbar-static-top" role="navigation">
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-8">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+              <li><a href="#profile" data-toggle="tab">Profile</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div id="content">
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="home">
+          <div id="nextGame"></div>
+          <div id="schedule"></div>
+          <div id="graph"></div>
+          <div id="leaderboard"></div>
+        </div>
+        <div class="tab-pane fade" id="profile"></div>
+      </div>
+    </div>
+
+    <script src = "./node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,113 @@
+body {
+  font-family: monospace;
+  min-width: 1920px;
+}
+
+#navBar {
+  background-color: #FF8200;
+  border: 2px solid black;
+  height: 44px;
+  width: 1920px;
+  padding: 0px;
+  margin: 0px;
+  font-size: 15px;
+  font-weight: bold;
+}
+#content {
+  height: 1110px;
+  width: 100%;
+  background-size: 1920px 1110px;
+  background-image: url("./neyland.jpg");
+}
+#home {
+  height: 1110px;
+  min-width: 1267px;
+  background: white;
+}
+#schedule {
+  float: left;
+  width: 300px;
+  height: 600px;
+  margin: 15px;
+  overflow-y: auto;
+  background-color: white;
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+}
+#schedule table {
+  width: 100%;
+  margin-bottom: 5px;
+}
+#graph {
+  float: right;
+  width: 900px;
+  height: 600px;
+  margin: 15px;
+  background-color: white;
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+}
+#leaderboard {
+  position: relative;
+  top: 615px;
+  width: 1238px;
+  height: 365px;
+  margin: 15px;
+  background: white;
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+}
+#nextGame {
+  width: 100%;
+  height: 100px;
+  background-size: 1277px 100px;
+  background-image: url("./checkerboard.png");
+}
+#nextGame table {
+  position: relative;
+  top: 10px;
+  margin-left: 10px;
+  background-color: #FFF;
+  box-shadow: 0px 0px 16px 0px rgba(0,0,0,1);
+}
+#nextGame table td {
+
+}
+.dateRow {
+  background-color: #EBEBEB;
+  color: #636363;
+  border: 1px solid #DEDEDE;
+}
+.smallLogo {
+  margin-left: 15px;
+  width: 21px;
+  height: 21px;
+}
+.tab-content {
+  height: 100%;
+  margin: 0px auto;
+  width: 66%;
+  background-color: white;
+  box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.75);
+}
+.navbar-primary .navbar { background:#000; border-bottom:none; }
+.navbar-primary .navbar .nav > li > a {color: #FF8200;}
+.navbar-primary .navbar .nav > li > a:hover {color: #FF8200; background-color: #a3a3a3;}
+.navbar-primary .navbar .nav .active > a,.navbar .nav .active > a:hover {color: #FF8200; background-color: #fff;}
+.navbar-primary .navbar .nav li > a .caret, .tnav .navbar .nav li > a:hover .caret {border-top-color: #fff;border-bottom-color: #000;}
+.navbar-primary .navbar .nav > li.dropdown.open.active > a:hover {}
+.navbar-primary .navbar .nav > li.dropdown.open > a {color: #FF8200;background-color: #000;border-color: #fff;}
+.navbar-primary .navbar .nav > li.dropdown.open.active > a:hover .caret, .tnav .navbar .nav > li.dropdown.open > a .caret {border-top-color: #fff;}
+.navbar-primary .navbar .navbar-brand {color:#FF8200;}
+.navbar-primary .navbar .nav.pull-right {margin-left: 10px; margin-right: 0;}
+.navbar-xs { width: 1920px; }
+.navbar-xs .navbar-primary .navbar { min-height:28px; height: 28px; margin: 0px; }
+.navbar-xs .navbar-primary .navbar .navbar-brand{ padding: 0px 12px;font-size: 16px;line-height: 28px; }
+.navbar-xs .navbar-primary .navbar .navbar-nav > li > a {  padding-top: 0px; padding-bottom: 0px; line-height: 28px; }
+.navbar-sm .navbar-primary .navbar { min-height:40px; height: 40px; }
+.navbar-sm .navbar-primary .navbar .navbar-brand{ padding: 0px 12px;font-size: 16px;line-height: 40px; }
+.navbar-sm .navbar-primary .navbar .navbar-nav > li > a {  padding-top: 0px; padding-bottom: 0px; line-height: 40px; }
+.navbar .navbar-static-top {margin: 0px;}
+.navbar-nav > li > a, .navbar-brand {
+    padding-top:4px !important;
+    padding-bottom:0 !important;
+    height: 28px;
+}
+.navbar {min-height:10px !important;}
