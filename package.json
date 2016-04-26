@@ -1,9 +1,9 @@
 {
-  "name": "sportsJSON",
+  "name": "footballPickem",
   "version": "0.0.0",
-  "description": "JSON of division, team, abbreviation, mascot, and logo",
+  "description": "College football game pickem",
   "license": "MIT",
-  "repository": "abrelsfo/sportsJSON",
+  "repository": "abrelsfo/footballPickem",
   "author": {
     "name": "abrelsfo",
     "email": "alexbrelsford@gmail.com",
@@ -14,14 +14,11 @@
     "osx-sign": "Alex Brelsford"
   },
 	"bugs":{
-		"url": "https://github.com/abrelsfo/sportsJSON/issues"
+		"url": "https://github.com/abrelsfo/footbalPickem/issues"
 	},
   "engines": {
     "node": ">=5.7.0"
   },
-  "files": [
-    "collegeFootball.json"
-  ],
   "keywords": [
     "college",
     "sports",
